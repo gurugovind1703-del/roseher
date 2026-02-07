@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>for you🩵</title>
+    <style>
+        :root {
+            --box-color: #1e80e9;
+            --lid-color: #18a3c2;
+            --ribbon-color: #0b2e54;
+            --bg-gradient: linear-gradient(120deg, #ff748d, #609ceb);
+            
+        }
+        
+        .heepicc{
+            width: 100px;
+            border-radius: 10px;
+        
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: var(--bg-gradient);
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+       
+        #open { display: none; }
+
+        .gift-wrapper {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.3s ease;
+        }
+
+        .gift-wrapper:hover {
+             transform: scale(1.05);
+           
+            filter: drop-shadow(0 15px 25px rgb(255, 255, 255));
+}
+
+        .rose-text {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 100%;
+            color: #a84242;
+            font-size: 1.6rem;
+            font-weight: bold;
+            opacity: 0;
+            transition: all 0.8s ease-out;
+            z-index: 1;
+            font-family:fantasy;
+        }
+
+        .box-body {
+            position: absolute;
+            bottom: 0;
+            width: 180px;
+            height: 130px;
+            background-color: var(--box-color);
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            z-index: 5;
+        }
+
+        .box-body::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 100%;
+            background: var(--ribbon-color);
+        }
+
+        .box-lid {
+            position: absolute;
+            top: 20px;
+            left: -5px;
+            width: 190px;
+            height: 35px;
+            background-color: var(--lid-color);
+            z-index: 6;
+            transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .zpic{
+            width: 100px;
+            margin-top: 30px;
+            border-radius: 6px;
+        }
+        .zpic:hover{
+            filter: drop-shadow(0 15px 25px rgb(237, 108, 108));
+        }
+
+        .box-lid::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 100%;
+            background: var(--ribbon-color);
+        }
+
+       
+        .container {
+            margin-top: 40px;
+            text-align: center;
+            max-width: 80%;
+            z-index: 11;
+        }
+
+        .typing {
+            font-size: 1.2rem;
+            color: #333;
+            min-height: 50px;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .final {
+            font-size: 1.1rem;
+            color: #444;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            line-height: 1.6;
+        }
+
+       
+        #open:checked + .gift-wrapper .box-lid {
+            transform: translateY(-120px) rotate(-15deg);
+            opacity: 0;
+        }
+
+        #open:checked + .gift-wrapper .rose-text {
+            opacity: 1;
+            transform: translate(-50%, -120px);
+        }
+
+        .petal {
+            position: absolute;
+            font-size: 20px;
+            pointer-events: none;
+            top: -10%;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+
+    <input type="checkbox" id="open" onclick="startSurprise()">
+    
+    <label class="gift-wrapper" for="open">
+        <div class="rose-text"><img class="heepicc" src="Heeseung -- this is what falling in love feel like.jpg" alt=""><br>happy rose day jaanu</div>
+        <div class="box-lid"></div>
+        <div class="box-body"></div>
+    </label>
+
+    <div class="container">
+        <div class="typing" id="typing"></div>
+        <div class="final" id="final">
+            if there's one thing id do for you <br>
+            tht would be treating you right <br>
+            and give you sm love till the end<br>
+            i love you<br>
+            you'll always be my best friend<br>
+            <b>you're my favourite🌹</b>
+        </div>
+    </div>
+    <img class="zpic" src="🤍.jpg" alt="">
+
+    <script>
+        const text = "i love you and youre my favourite human out there am really happy ki you're my best friend😤";
+        let i = 0;
+        let started = false;
+
+        function startSurprise() {
+            if (started) return; 
+            started = true;
+            
+           
+            setTimeout(type, 800);
+            
+             
+            createPetals();
+        }
+
+        function type() {
+            const typingDiv = document.getElementById("typing");
+            if (i < text.length) {
+                typingDiv.innerHTML += text[i] === "\n" ? "<br>" : text[i];
+                i++;
+                setTimeout(type, 50);
+            } else {
+                
+                document.getElementById("final").style.opacity = "1";
+            }
+        }
+
+        function createPetals() {
+            for (let i = 0; i < 40; i++) {
+                let petal = document.createElement("div");
+                petal.className = "petal";
+                petal.innerHTML = i % 2 === 0 ? "🍀" : "🌹" ;
+                petal.style.left = Math.random() * 100 + "vw";
+                petal.style.animationDuration = (Math.random() * 3 + 3) + "s";
+                petal.style.delay = Math.random() * 5 + "s";
+                document.body.appendChild(petal);
+            }
+        }
+        
+    </script>
+</body>
+</html>
